@@ -54,28 +54,35 @@ function toBinaryString(tileArr) {
 function toHexString(tileArr) {
     let hex_str = '0x';
     let hex_num = 0;
-//    let hex_let = '';
     
     hex_str = hex_str + tileArr[0].onoff;
     
     for (let i = 1; i < tileArr.length; i++) {
-	hex_num += tileArr[i].onoff * 2 ** (4-i)
+	hex_num += tileArr[i].onoff * 2 ** (4-i);
     }
 
+    let hex_let = '' + hex_num;
+    
     switch(hex_num) {
     case 10:
-	hex_num = 'A';
+	hex_let = 'A';
+	break;
     case 11:
-	hex_num = 'B';
+	hex_let = 'B';
+	break;
     case 12:
-	hex_num = 'C';
+	hex_let = 'C';
+	break;
     case 13:
-	hex_num = 'D';
+	hex_let = 'D';
+	break;
     case 14:
-	hex_num = 'E';
+	hex_let = 'E';
+	break;
     case 15:
-	hex_num = 'F';
+	hex_let = 'F';
+	break;
     }
-    
-    return hex_str + hex_num;
+
+    return hex_str + hex_let;
 }
