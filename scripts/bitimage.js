@@ -2,7 +2,7 @@
 const row = 8
 const col = 5
 
-let binary = document.getElementById('binary');
+let code = document.getElementById('code');
 
 let tile = new Array(row);
 let binArr = new Array(row);
@@ -12,6 +12,8 @@ for (let i = 0; i < tile.length; i++) {
     tile[i] = new Array(col);
 }
 
+code.defaultValue = 'code will go here';
+
 init();
 
 function init() {
@@ -20,7 +22,7 @@ function init() {
 	    tile[i][j] = document.createElement('img');
 	    tile[i][j].src = 'images/white.svg';
 	    tile[i][j].style = 'position:absolute; height:50px; width: 50px';
-	    tile[i][j].style.top = 100 + i * 55;
+	    tile[i][j].style.top = 60 + i * 55;
 	    tile[i][j].style.left = 75 + j * 55;
 	    tile[i][j].rowcol = [i, j];
 	    tile[i][j].onoff = 0;
@@ -32,7 +34,7 @@ function init() {
 	//create binary/hex strings
 	binArr[i] = document.createElement('p');
 	binArr[i].style = 'position:absolute'
-	binArr[i].style.top = 100 + i * 55;
+	binArr[i].style.top = 60 + i * 55;
 	binArr[i].style.left = 400;
 	binArr[i].innerHTML = toBinaryString(tile[i]) + " " + toHexString(tile[i]);
 	document.body.appendChild(binArr[i])
