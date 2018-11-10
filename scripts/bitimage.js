@@ -3,16 +3,15 @@ const row = 8
 const col = 5
 
 let code = document.getElementById('code');
+let arrName = document.getElementById('arrname');
 
 let tile = new Array(row);
 let binArr = new Array(row);
 
-//creation of 2d array
+// Creation of 2d array
 for (let i = 0; i < tile.length; i++) {
     tile[i] = new Array(col);
 }
-
-code.defaultValue = 'code will go here';
 
 init();
 
@@ -31,7 +30,7 @@ function init() {
 	}
     }
     for (let i = 0; i < row; i++) {
-	//create binary/hex strings
+	// Creates binary/hex strings
 	binArr[i] = document.createElement('p');
 	binArr[i].style = 'position:absolute'
 	binArr[i].style.top = 60 + i * 55;
@@ -39,10 +38,19 @@ function init() {
 	binArr[i].innerHTML = toBinaryString(tile[i]) + " " + toHexString(tile[i]);
 	document.body.appendChild(binArr[i])
     }
+
+    // Initial code creation
+    code.value = toCodeString(tile);
+    
+    // If user changes array name input box, update code appropriately
+    arrName.addEventListener("input", function () {
+	code.value = toCodeString(tile);
+    });
 }
 
 function click(event) {
     let source = event.target;
+    
     if (source.onoff === 0) {
 	source.src = 'images/black.svg';
 	source.onoff = 1;
@@ -51,8 +59,22 @@ function click(event) {
 	source.src = 'images/white.svg';
 	source.onoff = 0;
     }
+
+    // Updates binary/hex strings
     let sourceRow = source.rowcol[0];
     binArr[sourceRow].innerHTML = toBinaryString(tile[sourceRow]) + " " + toHexString(tile[sourceRow]);
+
+    // Updates code
+    code.value = toCodeString(tile);
+}
+
+function toCodeString(tileArr) {
+    codeString = 'char ' + arrName.value + '[8] = {\n';
+    for (let i = 0; i < row; i++) {
+	codeString = codeString + "    " + toHexString(tile[i]) + ',\n';
+    }
+    codeString = codeString + '};'
+    return codeString;
 }
 
 function toBinaryString(tileArr) {
