@@ -2,10 +2,10 @@
 const row = 8
 const col = 5
 
-let bitimg = document.getElementById('bitimage');
 let binary = document.getElementById('binary');
 
 let tile = new Array(row);
+let binArr = new Array(row);
 
 //creation of 2d array
 for (let i = 0; i < tile.length; i++) {
@@ -28,6 +28,15 @@ function init() {
 	    document.body.appendChild(tile[i][j]);
 	}
     }
+    for (let i = 0; i < row; i++) {
+	//create binary/hex strings
+	binArr[i] = document.createElement('p');
+	binArr[i].style = 'position:absolute'
+	binArr[i].style.top = 100 + i * 55;
+	binArr[i].style.left = 400;
+	binArr[i].innerHTML = toBinaryString(tile[i]) + " " + toHexString(tile[i]);
+	document.body.appendChild(binArr[i])
+    }
 }
 
 function click(event) {
@@ -40,11 +49,13 @@ function click(event) {
 	source.src = 'images/white.svg';
 	source.onoff = 0;
     }
-    binary.innerHTML = toBinaryString(tile[0]) + " " + toHexString(tile[0]);
+    let sourceRow = source.rowcol[0];
+    binArr[sourceRow].innerHTML = toBinaryString(tile[sourceRow]) + " " + toHexString(tile[sourceRow]);
 }
 
 function toBinaryString(tileArr) {
-    let bin_str = '000';
+    // First 3 bits aren't needed, just buffer as 0
+    let bin_str = '000'; 
     for (let i = 0; i < tileArr.length; i++) {
 	bin_str = bin_str + String(tileArr[i].onoff);
     }
