@@ -50,18 +50,17 @@ function init() {
 
 function click(event) {
     let source = event.target;
-
-    update(source);
+    switchTile(source);
 
     // Updates binary/hex strings
     let sourceRow = source.rowcol[0];
-    binArr[sourceRow].innerHTML = toBinaryString(tile[sourceRow]) + " " + toHexString(tile[sourceRow]);
+    updateString(sourceRow);
 
     // Updates code
     code.value = toCodeString(tile);
 }
 
-function update(square) {
+function switchTile(square) {
     if (square.onoff === 0) {
 	square.src = 'images/black.svg';
 	square.onoff = 1;
@@ -72,12 +71,30 @@ function update(square) {
     }
 }
 
-function invert(event) {
+function invert() {
     for (let i = 0; i < row; i++) {
 	for (let j = 0; j < col; j++) {
-	    tile 
+	    switchTile(tile[i][j]);
 	}
+	// Updates binary/hex strings
+	updateString(i);
     }
+    // Updates code
+    code.value = toCodeString(tile);
+}
+
+function reset() {
+    for (let i = 0; i < row; i++) {
+	for (let j = 0; j < col; j++) {
+	    if (tile[i][j].onoff === 1) {
+		switchTile(tile[i][j]);
+	    }
+	}
+	// Updates binary/hex strings
+	updateString(i);
+    }
+    // Updates code
+    code.value = toCodeString(tile);
 }
 
 function toCodeString(tileArr) {
@@ -87,6 +104,10 @@ function toCodeString(tileArr) {
     }
     codeString = codeString + '};'
     return codeString;
+}
+
+function updateString(row) {
+    binArr[row].innerHTML = toBinaryString(tile[row]) + " " + toHexString(tile[row]);
 }
 
 function toBinaryString(tileArr) {
@@ -101,7 +122,6 @@ function toBinaryString(tileArr) {
 function toHexString(tileArr) {
     let hex_str = '0x';
     let hex_num = 0;
-    
     hex_str = hex_str + tileArr[0].onoff;
     
     for (let i = 1; i < tileArr.length; i++) {

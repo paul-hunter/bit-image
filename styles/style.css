@@ -1,6 +1,11 @@
 * {
     font-family: 'Source Code Pro';
 }
+button {
+    position: relative;
+    top: 12;
+    left: 70;
+}
 textarea {
     line-height: 1.5;
     border-radius: 5px;
