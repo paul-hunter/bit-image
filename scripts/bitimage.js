@@ -50,15 +50,8 @@ function init() {
 
 function click(event) {
     let source = event.target;
-    
-    if (source.onoff === 0) {
-	source.src = 'images/black.svg';
-	source.onoff = 1;
-    }
-    else {
-	source.src = 'images/white.svg';
-	source.onoff = 0;
-    }
+
+    update(source);
 
     // Updates binary/hex strings
     let sourceRow = source.rowcol[0];
@@ -66,6 +59,25 @@ function click(event) {
 
     // Updates code
     code.value = toCodeString(tile);
+}
+
+function update(square) {
+    if (square.onoff === 0) {
+	square.src = 'images/black.svg';
+	square.onoff = 1;
+    }
+    else {
+	square.src = 'images/white.svg';
+	square.onoff = 0;
+    }
+}
+
+function invert(event) {
+    for (let i = 0; i < row; i++) {
+	for (let j = 0; j < col; j++) {
+	    tile 
+	}
+    }
 }
 
 function toCodeString(tileArr) {
